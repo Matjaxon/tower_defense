@@ -20,7 +20,7 @@ The player has a set amount of health and each time an enemy reaches the end of 
 
 ## Wireframe
 
-![]("files/docs/tower_defense_game.png")
+![](docs/tower_defense_game.png)
 
 ## Architecture and Technologies
 
