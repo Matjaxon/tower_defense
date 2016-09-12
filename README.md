@@ -18,6 +18,10 @@ The player has a set amount of health and each time an enemy reaches the end of 
 - [ ] Enemies properly spawn in waves  
 - [ ] Towers properly target enemies in the correct order
 
+## Wireframe
+
+![]("files/docs/tower_defense_game.png")
+
 ## Architecture and Technologies
 
 This project will be implemented with the following techniques:
