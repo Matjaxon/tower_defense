@@ -12,11 +12,11 @@ The player has a set amount of health and each time an enemy reaches the end of 
 
 ## Functionality and MVP
 
-[ ] Select where to place towers within game field  
-[ ] Ability to upgrade towers  
-[ ] Ability to destroy towers  
-[ ] Enemies properly spawn in waves  
-[ ] Towers properly target enemies in the correct order
+- [ ] Select where to place towers within game field  
+- [ ] Ability to upgrade towers  
+- [ ] Ability to destroy towers  
+- [ ] Enemies properly spawn in waves  
+- [ ] Towers properly target enemies in the correct order
 
 ## Architecture and Technologies
 
