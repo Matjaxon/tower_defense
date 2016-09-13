@@ -1,0 +1,29 @@
+{
+  "name": "tower_defense",
+  "version": "1.0.0",
+  "description": "## Background",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matjaxon/tower_defense.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matjaxon/tower_defense/issues"
+  },
+  "homepage": "https://github.com/Matjaxon/tower_defense#readme",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "webpack": "^1.13.2"
+  }
+}
