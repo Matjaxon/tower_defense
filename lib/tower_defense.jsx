@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TowerMenuReact from './tower_menu_react';
+
 const createjs = window.createjs;
 import Enemy from './enemy';
 import Field from './field';
@@ -8,6 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementsByTagName("canvas")[0];
   const stage = window.stage = new createjs.Stage(canvas);
   stage.enableMouseOver(20);
+
+  const root = document.getElementById('root');
+  ReactDOM.render(<TowerMenuReact />, root);
 
   // 40 pixels for a "square"
   const squareSize = 40;
@@ -40,6 +47,5 @@ document.addEventListener("DOMContentLoaded", () => {
   createjs.Ticker.addEventListener("tick", handleTick);
 
   game.play();
-
   // Util.mouseOver(canvas);
 });

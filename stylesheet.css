@@ -17,3 +17,19 @@ canvas {
   background-color: lightyellow;
   border: 1px solid black;
 }
+
+.button-bar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-bar div {
+  border: 1px solid black;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.game-box {
+  width: 800px;
+  margin: 0 auto;
+}

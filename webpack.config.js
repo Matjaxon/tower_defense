@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./lib/tower_defense.js",
+  entry: "./lib/tower_defense.jsx",
   output: {
   	filename: "./lib/bundle.js"
   },
@@ -10,7 +10,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          presets: ["es2015"]
+          presets: ["es2015", "react"]
         }
       }
     ]
