@@ -9,6 +9,11 @@ import Field from './field';
 import Game from './game';
 import Util from './util';
 
+const towerCosts = {
+  rifle: 150,
+  rapid_fire: 250
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementsByTagName("canvas")[0];
   const stage = window.stage = new createjs.Stage(canvas);
@@ -16,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const root = document.getElementById('root');
   const topStats = document.getElementById('top-stats');
-  ReactDOM.render(<TowerMenuReact />, root);
+  ReactDOM.render(<TowerMenuReact towerCosts={towerCosts} />, root);
   ReactDOM.render(<TopStats />, topStats);
 
   // 40 pixels for a "square"

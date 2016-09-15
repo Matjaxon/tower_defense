@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Timmana', sans-serif;
+  font-family: 'Orbitron', sans-serif;
 }
 
 body {
@@ -29,7 +29,14 @@ body {
 .tower-button, .pause-button, .game-stats {
   border: 2px solid gray;
   background-color: white;
-  padding: 10px 0 7px;
+  padding: 12px 0 7px;
+}
+
+.tower-button {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 
 .gold-container {
@@ -62,4 +69,29 @@ body {
 
 .stats-label {
   padding-right: 10px;
+}
+
+.tower-options {
+ position: absolute;
+ background: transparent;
+ display: flex;
+ flex-direction: column;
+ padding: 5px;
+}
+
+.options-button {
+  background: lightblue;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 8px 15px 5px 15px;
+  margin: 5px;
+}
+
+.destroy-button {
+  background: #ff3333;
+  color: white;
+}
+
+#tower-options {
+  display: none;
 }

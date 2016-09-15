@@ -1,4 +1,7 @@
 const Shape = window.createjs.Shape;
+import TowerOptions from './tower_options';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // 40 pixels for a "square"
 const squareSize = 40;
@@ -20,6 +23,7 @@ class Tower extends Shape {
     this.damage = options.damage;
     this.attackTimer = options.attackTimer;
     this.towerCost = options.towerCost;
+    this.refundValue = options.refundValue;
 
     this.remainingAttackTimer = 0;
     this.attackTarget = null;
@@ -30,25 +34,35 @@ class Tower extends Shape {
     this.assignClickHandler = this.assignClickHandler.bind(this);
     this.toggleRadius = this.toggleRadius.bind(this);
     this.showRadius = this.showRadius.bind(this);
+    this.destroyTower = this.destroyTower.bind(this);
+    this.hideTowerMenu = this.hideTowerMenu.bind(this);
 
     const game = options.game;
     this.assignClickHandler(game);
   }
 
   assignClickHandler(game) {
+    let towerOptions = document.getElementById("tower-options");
     this.on("click", (event) => {
       if(!game.towerOverlay) {
         if (game.activeTower) {
           game.activeTower.toggleRadius(game.stage);
           if(game.activeTower === this) {
+            this.hideTowerMenu();
             game.activeTower = null;
           } else {
             this.toggleRadius(game.stage);
             game.activeTower = this;
+            let towerMenu = document.getElementById("tower-options");
+            towerMenu.style.display = "flex";
+            ReactDOM.render(<TowerOptions game={this.game} tower={this} />, towerOptions);
           }
         } else {
           this.toggleRadius(game.stage);
           game.activeTower = this;
+          let towerMenu = document.getElementById("tower-options");
+          if (towerMenu) towerMenu.style.display = "flex";
+          ReactDOM.render(<TowerOptions game={this.game} tower={this} />, towerOptions);
         }
       } else {
         if(game.field.towerOverlay === this) {
@@ -64,6 +78,7 @@ class Tower extends Shape {
     this.activeRadius = !this.activeRadius;
     if(this.activeRadius) {
       this.showRadius(this.game.stage);
+      let towerOptions = new TowerOptions({tower: this, game: this.game});
     } else {
       this.game.stage.removeChild(this.radiusShown);
       this.radiusShown = null;
@@ -118,6 +133,24 @@ class Tower extends Shape {
 
   fire() {
     this.attackTarget.health -= this.damage;
+  }
+
+  destroyTower() {
+    this.game.activeTower = null;
+    this.toggleRadius();
+    this.hideTowerMenu();
+    this.game.stage.removeChild(this);
+    let gameTowers = this.game.towers;
+    let idxToRemove = gameTowers.indexOf(this);
+    let newTowers = gameTowers.slice(0, idxToRemove)
+      .concat(gameTowers.slice(idxToRemove + 1));
+    this.game.towers = newTowers;
+    this.game.updateGoldCount(this.refundValue);
+  }
+
+  hideTowerMenu() {
+    let towerMenu = document.getElementById("tower-options");
+    towerMenu.style.display = "none";
   }
 
 }
