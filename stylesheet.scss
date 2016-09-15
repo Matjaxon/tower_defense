@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Timmana', sans-serif;
+}
+
+body {
+  background-color: #e0e0e0;
+}
+
+.game-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: 0 auto;
+}
+
+#demoCanvas {
+  background-color: #64aced;
+  border: 1px solid black;
+}
+
+.button-bar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tower-button, .pause-button, .game-stats {
+  border: 2px solid gray;
+  background-color: white;
+  padding: 10px 0 7px;
+}
+
+.gold-container {
+  display: flex;
+}
+
+.pause-button {
+  width: 10%;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  align-items: center;
+}
+
+.game-stats div {
+  background-color: white;
+  display: flex;
+}
+
+.tower-button {
+  width: 33.33%;
+}
+
+.top-stats {
+  background-color: white;
+}
+
+.stats-label {
+  padding-right: 10px;
+}

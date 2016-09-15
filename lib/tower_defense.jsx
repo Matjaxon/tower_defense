@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TowerMenuReact from './tower_menu_react';
+import TopStats from './top_stats';
 
 const createjs = window.createjs;
 import Enemy from './enemy';
@@ -14,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   stage.enableMouseOver(20);
 
   const root = document.getElementById('root');
+  const topStats = document.getElementById('top-stats');
   ReactDOM.render(<TowerMenuReact />, root);
+  ReactDOM.render(<TopStats />, topStats);
 
   // 40 pixels for a "square"
   const squareSize = 40;
@@ -35,17 +38,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function handleTick() {
     if(!createjs.Ticker.getPaused()) {
+
       game.enemies.forEach(enemy => enemy.move());
+      game.pendingEnemies.forEach(pendingEnemy => pendingEnemy.move());
+      game.move();
       game.checkPivots(game.pivotSpaces, game.enemies);
       game.checkEndGateHit();
       game.towers.forEach(tower => tower.move());
+      tickSpawnTimer();
     }
     stage.update();
   }
 
-  createjs.Ticker.setFPS(80);
+  function checkGameOver() {
+    if(game.isGameOver()) {
+      createjs.Ticker.setPaused(true);
+      console.log("GAME OVER");
+    }
+  }
+
+  function tickSpawnTimer() {
+    const spawnTimer = document.getElementById("wave-timer");
+    spawnTimer.innerHTML = parseInt(game.spawnTimer / 60);
+  }
+
+  createjs.Ticker.setFPS(60);
   createjs.Ticker.addEventListener("tick", handleTick);
 
   game.play();
+
+
   // Util.mouseOver(canvas);
 });
