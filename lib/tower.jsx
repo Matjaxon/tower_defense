@@ -1,7 +1,8 @@
 const Shape = window.createjs.Shape;
-import TowerOptions from './tower_options';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TowerOptions from './tower_options';
+import Projectile from './projectile';
 
 // 40 pixels for a "square"
 const squareSize = 40;
@@ -152,7 +153,6 @@ class Tower extends Shape {
 
   checkFire() {
     if(this.remainingAttackTimer === 0 && this.attackTarget) {
-      console.log(`${this.towerType} FIRE!`);
       this.fire();
       this.remainingAttackTimer = this.attackTimer;
     }
@@ -165,13 +165,18 @@ class Tower extends Shape {
   }
 
   fire() {
-    this.attackTarget.health -= this.damage;
+    let bulletOptions = {
+      enemy: this.attackTarget,
+      tower: this,
+      damage: this.damage,
+      game: this.game
+    };
+    let newBullet = new Projectile(bulletOptions);
+    this.game.bullets.push(newBullet);
   }
 
   destroyTower() {
-    this.game.activeTower = null;
-    this.toggleRadius();
-    this.hideTowerMenu();
+    this.resetTowerUI();
     this.game.stage.removeChild(this);
     let gameTowers = this.game.towers;
     let idxToRemove = gameTowers.indexOf(this);
@@ -194,9 +199,15 @@ class Tower extends Shape {
       this.damage *= 1.25;
       this.upgradeCost *= 2.25;
       this.drawTower(this.level);
+      this.resetTowerUI();
     }
   }
 
+  resetTowerUI() {
+    this.hideTowerMenu();
+    this.game.activeTower = null;
+    this.toggleRadius();
+  }
 }
 
 export default Tower;

@@ -24,7 +24,7 @@ const TowerOptions = ({ game, tower, clickEvent }) => {
   if (tower.level < 3) {
     upgradeButton = (
       <button className="options-button" onClick={upgradeTower}>
-        {`Upgrade Tower - ${tower.upgradeCost}`}
+        {`Upgrade Tower ( -${tower.upgradeCost} Gold )`}
       </button>
     );
   } else {
@@ -40,7 +40,7 @@ const TowerOptions = ({ game, tower, clickEvent }) => {
       { upgradeButton }
       <button className="options-button destroy-button"
         onClick={destroyTower}>
-          Destroy Tower
+          {`Salvage Tower ( +${tower.refundValue} Gold )`}
       </button>
     </div>
   );

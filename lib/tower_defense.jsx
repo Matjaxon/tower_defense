@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TowerMenuReact from './tower_menu_react';
 import TopStats from './top_stats';
+import LaunchScreen from './launch_screen';
 
 const createjs = window.createjs;
 import Enemy from './enemy';
@@ -21,7 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const root = document.getElementById('root');
   const topStats = document.getElementById('top-stats');
-  ReactDOM.render(<TowerMenuReact towerCosts={towerCosts} />, root);
+  const launchScreen = document.getElementById('launch-screen');
+  ReactDOM.render(<TowerMenuReact
+    towerCosts={towerCosts}
+    togglePause={togglePause}
+    ticker={createjs.Ticker}/>, root);
+
   ReactDOM.render(<TopStats />, topStats);
 
   // 40 pixels for a "square"
@@ -29,28 +35,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const startGateCoords = [0, 9];
   const endGateCoords = [17, 0];
 
-  const game = window.game = new Game(stage);
-
-  const pauseBtn = document.getElementById("pauseBtn");
-
-  pauseBtn.addEventListener("click", () => togglePause());
+  let game = window.game = new Game(stage, togglePause);
 
   function togglePause() {
     let paused = !createjs.Ticker.getPaused();
+    let pauseButton = document.getElementById("pause-button");
+    pauseButton.innerHTML = (paused) ? "Unpause" : "Pause";
     createjs.Ticker.setPaused(paused);
-    pauseBtn.value = paused ? "unpause" : "pause";
   }
 
   function handleTick() {
     if(!createjs.Ticker.getPaused()) {
-
-      game.enemies.forEach(enemy => enemy.move());
-      game.pendingEnemies.forEach(pendingEnemy => pendingEnemy.move());
       game.move();
-      game.checkPivots(game.pivotSpaces, game.enemies);
-      game.checkEndGateHit();
-      game.towers.forEach(tower => tower.move());
       tickSpawnTimer();
+      checkGameOver();
     }
     stage.update();
   }
@@ -70,8 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   createjs.Ticker.setFPS(60);
   createjs.Ticker.addEventListener("tick", handleTick);
 
-  game.play();
+  ReactDOM.render(<LaunchScreen game={game}/>, launchScreen);
 
-
-  // Util.mouseOver(canvas);
+  togglePause();
 });
