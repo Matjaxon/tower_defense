@@ -67,8 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   createjs.Ticker.setFPS(60);
   createjs.Ticker.addEventListener("tick", handleTick);
+  createjs.Ticker.setPaused(true);
 
   ReactDOM.render(<LaunchScreen game={game}/>, launchScreen);
-
-  togglePause();
 });
