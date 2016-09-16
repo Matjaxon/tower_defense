@@ -14,7 +14,9 @@ class Tower extends Shape {
     this.active = options.active || false;
     this.activeRadius = false;
     this.radiusShown = null;
-    this.graphics.beginFill(options.color).drawCircle(0, 0, squareSize/2);
+    this.color = options.color;
+    this.level = 1;
+
     this.coords = options.coords;
     this.game = options.game;
 
@@ -23,6 +25,7 @@ class Tower extends Shape {
     this.damage = options.damage;
     this.attackTimer = options.attackTimer;
     this.towerCost = options.towerCost;
+    this.upgradeCost = this.towerCost * 1.5;
     this.refundValue = options.refundValue;
 
     this.remainingAttackTimer = 0;
@@ -36,9 +39,11 @@ class Tower extends Shape {
     this.showRadius = this.showRadius.bind(this);
     this.destroyTower = this.destroyTower.bind(this);
     this.hideTowerMenu = this.hideTowerMenu.bind(this);
+    this.drawTower = this.drawTower.bind(this);
+    this.upgradeTower = this.upgradeTower.bind(this);
 
-    const game = options.game;
-    this.assignClickHandler(game);
+    this.drawTower(1);
+    this.assignClickHandler(this.game);
   }
 
   assignClickHandler(game) {
@@ -72,6 +77,34 @@ class Tower extends Shape {
         }
       }
     });
+  }
+
+  drawTower(level) {
+    switch(level) {
+      case 1:
+        this.graphics.beginFill(this.color).drawCircle(0, 0, squareSize/2)
+        .setStrokeStyle(2).beginStroke("rgba(0,0,0,1)")
+        .drawCircle(0, 0, squareSize/2);
+        break;
+
+      case 2:
+        this.graphics.beginFill(this.color).drawCircle(0, 0, squareSize/2)
+          .setStrokeStyle(2).beginStroke("rgba(0,0,0,1)")
+          .drawCircle(0, 0, squareSize/2)
+          .setStrokeStyle(2).beginStroke("rgba(0,0,0,1)")
+          .drawCircle(0, 0, squareSize/3);
+          break;
+
+      case 3:
+        this.graphics.beginFill(this.color).drawCircle(0, 0, squareSize/2)
+          .setStrokeStyle(2).beginStroke("rgba(0,0,0,1)")
+          .drawCircle(0, 0, squareSize/2)
+          .setStrokeStyle(2).beginStroke("rgba(0,0,0,1)")
+          .drawCircle(0, 0, squareSize/3)
+          .setStrokeStyle(2).beginStroke("rgba(0,0,0,1)")
+          .drawCircle(0, 0, squareSize/7);
+          break;
+    }
   }
 
   toggleRadius() {
@@ -151,6 +184,17 @@ class Tower extends Shape {
   hideTowerMenu() {
     let towerMenu = document.getElementById("tower-options");
     towerMenu.style.display = "none";
+  }
+
+  upgradeTower() {
+    if(this.level < 3) {
+      this.game.updateGoldCount(-this.upgradeCost);
+      this.level += 1;
+      this.attackTimer *= 0.90;
+      this.damage *= 1.25;
+      this.upgradeCost *= 2.25;
+      this.drawTower(this.level);
+    }
   }
 
 }

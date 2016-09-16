@@ -95,3 +95,9 @@ body {
 #tower-options {
   display: none;
 }
+
+.maxed-button {
+  background: lightgray;
+  opacity: 0.5;
+  pointer-events: none;
+}

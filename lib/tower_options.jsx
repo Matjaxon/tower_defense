@@ -4,12 +4,13 @@ const TowerOptions = ({ game, tower, clickEvent }) => {
 
   function upgradeTower(event) {
     event.preventDefault();
-    console.log(`Upgrading tower ${tower.id}`);
+    if (game.gold > tower.upgradeCost) {
+      tower.upgradeTower();
+    }
   }
 
   function destroyTower(event) {
     event.preventDefault();
-    console.log("Destroying Tower");
     tower.destroyTower();
   }
 
@@ -19,11 +20,20 @@ const TowerOptions = ({ game, tower, clickEvent }) => {
     display: "flex"
   };
 
-  let upgradeButton = (
-    <button className="options-button" onClick={upgradeTower}>
-      Upgrade Tower
-    </button>
-  );
+  let upgradeButton;
+  if (tower.level < 3) {
+    upgradeButton = (
+      <button className="options-button" onClick={upgradeTower}>
+        {`Upgrade Tower - ${tower.upgradeCost}`}
+      </button>
+    );
+  } else {
+    upgradeButton = (
+      <button className="options-button maxed-button">
+        MAXED
+      </button>
+    );
+  }
 
   return(
     <div style={optionsPos} id="tower-options" className="tower-options">
