@@ -1,5 +1,7 @@
 # Tower Defense
 
+[Live Game](https://matjaxon.github.io/tower_defense/)
+
 A version of the classic real time strategy game.  Defend the exit point from ever growing swarms for enemies by constructing towers along their path.
 
 ![](/assets/game_screenshot.png)
